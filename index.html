@@ -3,12 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Конспект по высшей математике — Коллоквиум</title>
+  <title>Высшая математика — Шпаргалка к коллоквиуму</title>
   
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- MathJax for rendering LaTeX formulas accurately -->
+  <!-- MathJax для точного отображения формул -->
   <script>
     window.MathJax = {
       tex: {
@@ -22,712 +19,992 @@
       }
     };
   </script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
 
-  <!-- Chart.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <!-- Embedded CSS for Chart Container & Print Styling -->
   <style>
-    .chart-container {
-      position: relative;
-      width: 100%;
-      max-width: 520px;
-      margin-left: auto;
-      margin-right: auto;
-      height: 250px;
-      max-height: 280px;
+    :root {
+      --bg-main: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --accent: #d97706;
+      --accent-light: #fef3c7;
+      --accent-border: #f59e0b;
+      --border-color: #e2e8f0;
+      --header-bg: #0f172a;
+      --success: #059669;
+      --success-light: #ecfdf5;
     }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 50px;
+    }
+
+    /* Верхняя панель */
+    header {
+      background-color: var(--header-bg);
+      color: #fff;
+      padding: 16px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .header-title h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fbbf24;
+    }
+    .header-title p {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn {
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-dark {
+      background: #1e293b;
+      color: #f1f5f9;
+      border-color: #334155;
+    }
+    .btn-dark:hover { background: #334155; }
+    .btn-accent {
+      background: #d97706;
+      color: #fff;
+    }
+    .btn-accent:hover { background: #b45309; }
+
+    /* Контейнер контента */
+    .container {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    /* Примечание */
+    .disclaimer-box {
+      background-color: var(--accent-light);
+      border-left: 4px solid var(--accent-border);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+      color: #78350f;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    /* Панель фильтров */
+    .controls-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 260px;
+      max-width: 450px;
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 10px 14px 10px 36px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      background: #fff;
+      outline: none;
+    }
+    .search-box input:focus {
+      border-color: var(--accent-border);
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 10px;
+      color: var(--text-muted);
+    }
+
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tab-btn {
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      background: #fff;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .tab-btn:hover { background: #f1f5f9; }
+    .tab-btn.active {
+      background: var(--header-bg);
+      color: #fff;
+      border-color: var(--header-bg);
+    }
+
+    /* Заголовки разделов */
+    .section-header {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-main);
+      padding-bottom: 8px;
+      border-bottom: 2px solid #cbd5e1;
+      margin: 32px 0 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-header span { color: var(--accent); }
+
+    /* Сетка карточек */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 16px;
+    }
+    .ticket-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 18px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .ticket-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+    .ticket-card.learned {
+      border-color: #86efac;
+      background-color: var(--success-light);
+    }
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 10px;
+      line-height: 1.4;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .extra-tag {
+      font-size: 0.65rem;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .card-body {
+      font-size: 0.88rem;
+      color: #334155;
+      line-height: 1.55;
+    }
+    .card-body p { margin-bottom: 6px; }
+    .card-footer {
+      margin-top: 16px;
+      padding-top: 10px;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-learn {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .ticket-card.learned .btn-learn {
+      background: var(--success);
+      color: #fff;
+      border-color: var(--success);
+    }
+
+    /* Режим цельного документа */
+    #document-view {
+      display: none;
+      background: #fff;
+      padding: 36px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .doc-ticket {
+      margin-bottom: 20px;
+      padding-left: 12px;
+      border-left: 3px solid var(--accent);
+    }
+    .doc-ticket h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #0f172a;
+    }
+
+    .illustration-note {
+      margin-top: 8px;
+      padding: 6px 10px;
+      background: #f1f5f9;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      color: #64748b;
+      font-style: italic;
+    }
+
     @media print {
-      .no-print { display: none !important; }
-      .print-only { display: block !important; }
-      body { background-color: #ffffff !important; color: #000000 !important; }
-      .card-box { border: 1px solid #ccc !important; break-inside: avoid; }
+      header, .controls-panel, .disclaimer-box, .btn-learn, .card-footer { display: none !important; }
+      body { background: #fff !important; color: #000 !important; }
+      #cards-view { display: none !important; }
+      #document-view { display: block !important; border: none !important; padding: 0 !important; }
+      .doc-ticket { break-inside: avoid; }
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col selection:bg-amber-200 selection:text-amber-900">
+<body>
 
-  <!-- Chosen Palette: Warm Academic Slate & Soft Sand -->
-  <!-- Application Structure Plan:
-       1. Top Header: Interactive study title, search bar, view switcher (Cards view vs Full document print mode), export/print triggers.
-       2. Analytical Header & Progress Dashboard: Chart.js visualization showing ticket counts per section, topics with standard external extensions (*), and user study progress tracking.
-       3. Filter Navigation: Section tabs (All, Algebra, Vectors, Complex Numbers & Polynomials, Extra Standard Topics *, Starred/Bookmarked).
-       4. Main Content Area: Responsive cards displaying every exam question with 100% original text, intact citations [1], [2], etc., formatted math via MathJax, and interactive "Learned" / "Bookmark" controls.
-       5. Printable Linear Document Mode for easy export to PDF or Google Docs without interactive controls clutter.
-  -->
-  <!-- Visualization & Content Choices:
-       - Math rendering: MathJax 3 rendering TeX code crisp and clear in vector format (NO SVG images used).
-       - Overview Analytics: Chart.js Donut chart for section counts and learning status.
-       - Layout & Visuals: Pure CSS/Tailwind grid with Unicode status symbols (NO SVG tags used).
-       - Content Integrity: 100% unaltered source text, equations, citations, asterisks, and structural headers.
-  -->
-  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
-  <!-- Top Header Nav -->
-  <header class="bg-slate-900 text-slate-100 shadow-md sticky top-0 z-50 no-print">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-      <div class="flex items-center space-x-3">
-        <span class="text-2xl">📚</span>
-        <div>
-          <h1 class="text-lg font-bold tracking-tight leading-tight text-amber-400">Высшая математика — Шпаргалка к коллоквиуму</h1>
-          <p class="text-xs text-slate-400">30 Билетов • Систематизированный математический конспект</p>
-        </div>
+  <!-- Шапка -->
+  <header>
+    <div class="header-inner">
+      <div class="header-title">
+        <h1>Высшая математика — Шпаргалка к коллоквиуму</h1>
+        <p>30 Билетов • Систематизированный математический конспект</p>
       </div>
-      
-      <!-- Interactive Controls -->
-      <div class="flex items-center space-x-2">
-        <button id="btn-view-mode" onclick="toggleViewMode()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-medium border border-slate-700 transition flex items-center gap-1.5">
-[30.10.2026 16:23] Kirill: <span id="view-mode-icon">📄</span> <span id="view-mode-text">Режим документа</span>
+      <div class="header-actions">
+        <button id="toggle-view-btn" onclick="toggleView()" class="btn btn-dark">
+          <span id="view-icon">📄</span> <span id="view-text">Режим документа</span>
         </button>
-        <button onclick="window.print()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-medium transition flex items-center gap-1.5">
-          <span>🖨️</span> Печать / PDF / Google Docs
+        <button onclick="window.print()" class="btn btn-accent">
+          <span>🖨️</span> Печать / PDF
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
+  <main class="container">
 
-    <!-- Introductory Banner & Disclaimer -->
-    <div class="bg-amber-50/90 border-l-4 border-amber-500 p-4 rounded-r-xl mb-6 shadow-sm">
-      <div class="flex items-start space-x-3">
-        <span class="text-amber-600 text-xl font-bold mt-0.5">💡</span>
-        <div class="text-xs sm:text-sm text-amber-900 leading-relaxed">
-          <strong>Примечание:</strong> Информация для ответов на вопросы «Вычисление определителя Вандермонда», «Доказательство дистрибутивности умножения матриц» и «Деление отрезка в данном отношении» отсутствует в ваших источниках. Я добавил её из стандартного курса высшей математики (эти пункты помечены звездочкой <span class="font-bold text-amber-700 font-mono">*</span>), рекомендую дополнительно сверить их с вашим учебником.
-        </div>
+    <!-- Примечание -->
+    <div class="disclaimer-box">
+      <strong>Примечание:</strong> Информация для ответов на вопросы «Вычисление определителя Вандермонда», «Доказательство дистрибутивности умножения матриц» и «Деление отрезка в данном отношении» отсутствует в ваших источниках. Я добавил её из стандартного курса высшей математики (эти пункты помечены звездочкой <strong>*</strong>), рекомендую дополнительно сверить их с вашим учебником.
+    </div>
+
+    <!-- Поиск и фильтры -->
+    <div class="controls-panel">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" oninput="filterCards()" placeholder="Поиск по билетам, формулам, свойствам...">
+      </div>
+      <div class="filter-tabs">
+        <button class="tab-btn active" onclick="setFilter('all', this)">Все (31)</button>
+        <button class="tab-btn" onclick="setFilter('sec1', this)">1. Алгебра (10)</button>
+        <button class="tab-btn" onclick="setFilter('sec2', this)">2. Векторы (11)</button>
+        <button class="tab-btn" onclick="setFilter('sec3', this)">3. Комплексные & Многочлены (10)</button>
+        <button class="tab-btn" onclick="setFilter('extra', this)">Со звёздочкой (*)</button>
       </div>
     </div>
 
-    <!-- Analytics Dashboard Section (No Print) -->
-    <section class="no-print mb-8 bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
-      <h2 class="text-base font-semibold text-slate-800 mb-4 flex items-center gap-2">
-        <span>📊</span> Обзор структуры и прогресса подготовки
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-        
-        <!-- Summary Cards -->
-        <div class="space-y-3">
-          <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-100 flex justify-between items-center">
-            <span class="text-xs text-slate-600 font-medium">Всего вопросов</span>
-            <span class="text-lg font-bold text-slate-900">31</span>
+    <!-- Режим интерактивных карточек -->
+    <div id="cards-view">
+
+      <!-- РАЗДЕЛ 1 -->
+      <div class="section-container" id="container-sec1">
+        <h2 class="section-header"><span>Раздел 1:</span> Алгебра</h2>
+        <div class="cards-grid">
+          
+          <div class="ticket-card" data-sec="sec1" data-id="1">
+            <div>
+              <div class="card-title">1. Вывод правила Крамера для линейной системы 2х2</div>
+              <div class="card-body">
+                <p>Система: $\begin{cases} a_1 x + b_1 y = c_1 \\ a_2 x + b_2 y = c_2 \end{cases}$ [1].</p>
+                <p>Умножаем 1-е ур-ние на $b_2$, 2-е на $b_1$, вычитаем [1].</p>
+                <p>$x(a_1 b_2 - a_2 b_1) = b_2 c_1 - b_1 c_2$ [2].</p>
+                <p>Обозначим <strong>$\Delta = a_1 b_2 - a_2 b_1$</strong>.</p>
+                <p>Если $\Delta \neq 0 \Rightarrow x = \frac{\Delta_x}{\Delta}$, где $\Delta_x = b_2 c_1 - b_1 c_2$ [2, 3].</p>
+                <p>Аналогично: $y = \frac{\Delta_y}{\Delta}$, где $\Delta_y = a_1 c_2 - a_2 c_1$ [2, 3].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 1</span>
+              <button class="btn-learn" onclick="toggleLearned(1)">Отметить как выученное</button>
+            </div>
           </div>
-          <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-100 flex justify-between items-center">
-            <span class="text-xs text-slate-600 font-medium">Дополнительные разделы (*)</span>
-            <span class="text-lg font-bold text-amber-600">3</span>
+
+          <div class="ticket-card" data-sec="sec1" data-id="2">
+            <div>
+              <div class="card-title">2. Свойства определителей</div>
+              <div class="card-body">
+                <p>1) Содержит две одинаковых строки (столбца) $\Rightarrow \Delta = 0$ [4].</p>
+                <p>2) Элементы строки (столбца) — сумма двух слагаемых $\Rightarrow \Delta = \Delta' + \Delta''$ [5].</p>
+                <p>3) Общий множитель строки (столбца) можно выносить за знак определителя [5].</p>
+                <p>4) При транспонировании $\Delta$ не меняется: $\det A = \det A^T$ [6].</p>
+                <p>5) При перестановке двух любых строк (столбцов) $\Delta$ меняет знак [6].</p>
+                <p>6) $\Delta$ не изменится, если к строке (столбцу) прибавить параллельную строку (столбец), умноженную на $k$ [6].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 2</span>
+              <button class="btn-learn" onclick="toggleLearned(2)">Отметить как выученное</button>
+            </div>
           </div>
-          <div class="bg-emerald-50 p-3.5 rounded-lg border border-emerald-100 flex justify-between items-center">
-            <span class="text-xs text-emerald-800 font-medium">Выучено билетов</span>
-            <span id="stat-learned-count" class="text-lg font-bold text-emerald-700">0 / 31</span>
+
+          <div class="ticket-card" data-sec="sec1" data-id="3">
+            <div>
+              <div class="card-title">3. Разложение определителя по строке (столбцу). Следствие</div>
+              <div class="card-body">
+                <p>Теорема: <strong>$\det A = \sum_{j=1}^n a_{1j} A_{1j}$</strong> (сумма произведений элементов на алгебр. дополнения $A_{ij} = (-1)^{i+j} M_{ij}$) [7-9].</p>
+                <p><strong>Следствие:</strong> Сумма произведений элементов ряда на алг. дополнения параллельного ряда равна нулю: $\sum_{j=1}^n a_{1j} A_{2j} = 0$ [10].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 3</span>
+              <button class="btn-learn" onclick="toggleLearned(3)">Отметить как выученное</button>
+            </div>
           </div>
+
+          <div class="ticket-card extra" data-sec="sec1" data-id="4">
+            <div>
+              <div class="card-title">
+                <span>4. Вычисление определителя Вандермонда 3-го порядка</span>
+                <span class="extra-tag">* Стандартный факт</span>
+              </div>
+              <div class="card-body">
+                <p><em>* (Отсутствует в источниках, стандартный факт)</em>:</p>
+                <p>$V_3 = \begin{vmatrix} 1 & 1 & 1 \\ x_1 & x_2 & x_3 \\ x_1^2 & x_2^2 & x_3^2 \end{vmatrix} = (x_2 - x_1)(x_3 - x_1)(x_3 - x_2)$.</p>
+                <p>Вывод: Вычитаем 1-й столбец из 2-го и 3-го, выносим множители $(x_2-x_1)$ и $(x_3-x_1)$, раскладываем по 1-й строке.</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 4</span>
+              <button class="btn-learn" onclick="toggleLearned(4)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec1" data-id="5">
+            <div>
+              <div class="card-title">5. Линейное пространство матриц. Линейные операции и их свойства</div>
+              <div class="card-body">
+                <p>Сложение: $C = A + B \Leftrightarrow c_{ij} = a_{ij} + b_{ij}$ [11].</p>
+                <p>Умножение на число: $\lambda A \Leftrightarrow \lambda a_{ij}$ [11].</p>
+                <p>Свойства:</p>
+                <p>1) $A+B=B+A$ [12];</p>
+                <p>2) $(A+B)+C=A+(B+C)$ [12];</p>
+                <p>3) $\exists 0: A+0=A$ [12];</p>
+                <p>4) $\exists (-A): A+(-A)=0$ [13];</p>
+                <p>5) $\lambda(\mu A)=(\lambda\mu)A$ [13];</p>
+                <p>6) $(\lambda+\mu)A=\lambda A+\mu A$ [13];</p>
+                <p>7) $\lambda(A+B)=\lambda A+\lambda B$ [13];</p>
+                <p>8) $1 \cdot A=A$ [13].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 5</span>
+              <button class="btn-learn" onclick="toggleLearned(5)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card extra" data-sec="sec1" data-id="6">
+            <div>
+              <div class="card-title">
+                <span>6. Умножение матриц и его свойства. Доказательство дистрибутивности</span>
+                <span class="extra-tag">* Стандартный факт</span>
+              </div>
+              <div class="card-body">
+                <p><strong>$c_{ij} = \sum_{k=1}^m a_{ik} b_{kj}$</strong> (строка на столбец) [14, 15].</p>
+                <p>Свойства: 1) $(AB)C=A(BC)$; 2) $\lambda(AB)=(\lambda A)B=A(\lambda B)$; 3) $(A+B)C=AC+BC$; 4) $A(B+C)=AB+AC$; 5) $AE=EA=A$ [16].</p>
+                <p><em>* (Док-во дистрибутивности отсутствует в источниках)</em>:<br>
+                $c_{ij} = \sum_{k} (a_{ik}+b_{ik})d_{kj} = \sum_{k} a_{ik}d_{kj} + \sum_{k} b_{ik}d_{kj} \Rightarrow (A+B)D = AD+BD$.</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 6</span>
+              <button class="btn-learn" onclick="toggleLearned(6)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec1" data-id="7">
+            <div>
+              <div class="card-title">7. Обратная матрица. Условие существования. Теорема</div>
+              <div class="card-body">
+                <p>Определение: <strong>$A A^{-1} = A^{-1} A = E$</strong> [17].</p>
+                <p>Условие: $\det A \neq 0$ (матрица невырожденная) [17].</p>
+                <p>Теорема: Всякая невырожденная матрица имеет единственную обратную: <strong>$A^{-1} = \frac{1}{\det A} A^V$</strong>, где $A^V = (A_{ij})^T$ (присоединенная матрица) [18, 19].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 7</span>
+              <button class="btn-learn" onclick="toggleLearned(7)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec1" data-id="8">
+            <div>
+              <div class="card-title">8. Метод Гаусса. Критерий Кронекера-Капелли</div>
+              <div class="card-body">
+                <p>Метод Гаусса: Элементарные преобразования $\rightarrow$ ступенчатый вид (прямой ход), выражение базисных переменных (обратный ход) [20-22].</p>
+                <p>Критерий: <strong>Система совместна $\Leftrightarrow \text{rank} A = \text{rank} \overline{A}$</strong> [23].</p>
+                <p>• $\text{rank} A = \text{rank} \overline{A} = n \Rightarrow$ ед. решение [23].</p>
+                <p>• $\text{rank} A = \text{rank} \overline{A} < n \Rightarrow \infty$ решений [23].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 8</span>
+              <button class="btn-learn" onclick="toggleLearned(8)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec1" data-id="9">
+            <div>
+              <div class="card-title">9. Необходимое и достаточное условие нетривиального решения однородной системы пхп</div>
+              <div class="card-body">
+                <p>Теорема: <strong>ЛОС имеет ненулевое решение $\Leftrightarrow \det A = 0$</strong> [24].</p>
+                <p>Док-во (необходимость): Если $\det A \neq 0$, система крамеровская $\Rightarrow$ решение только одно (нулевое) [24].</p>
+                <p>Док-во (достаточность): Если $\det A = 0 \Rightarrow \text{rank} A = r < n \Rightarrow \exists (n-r)$ свободных переменных $\Rightarrow \exists$ ненулевые решения [25].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 9</span>
+              <button class="btn-learn" onclick="toggleLearned(9)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec1" data-id="10">
+            <div>
+              <div class="card-title">10. Собственные числа и собственные векторы. Характеристическое уравнение</div>
+              <div class="card-body">
+                <p>$\vec{X} \neq \vec{0}$ — собственный вектор матрицы $A$, $\lambda$ — собственное число, если <strong>$A\vec{X} = \lambda\vec{X}$</strong> [25].</p>
+                <p>Вывод: $A\vec{X} = \lambda E\vec{X} \Leftrightarrow (A - \lambda E)\vec{X} = \vec{0}$ [26].</p>
+                <p>Т.к. $\vec{X} \neq \vec{0}$, матрица вырождена $\Rightarrow$ <strong>$\det(A - \lambda E) = 0$</strong> (характеристическое уравнение) [26, 27].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 10</span>
+              <button class="btn-learn" onclick="toggleLearned(10)">Отметить как выученное</button>
+            </div>
+          </div>
+
         </div>
+      </div>
 
-        <!-- Chart Container -->
-        <div class="md:col-span-2 flex justify-center items-center">
-          <div class="chart-container">
-            <canvas id="ticketsChart"></canvas>
+      <!-- РАЗДЕЛ 2 -->
+      <div class="section-container" id="container-sec2">
+        <h2 class="section-header"><span>Раздел 2:</span> Векторы</h2>
+        <div class="cards-grid">
+
+          <div class="ticket-card" data-sec="sec2" data-id="11">
+            <div>
+              <div class="card-title">1. Связь коллинеарности и линейной зависимости 2 векторов</div>
+              <div class="card-body">
+                <p>Теорема: <strong>$\vec{a} \parallel \vec{b} \Leftrightarrow$ линейно зависимы</strong> [28].</p>
+                <p>Док-во: Если $\vec{b} \neq \vec{0}$, $\vec{a} \parallel \vec{b} \Leftrightarrow \exists k \in \mathbb{R}: \vec{b} = k\vec{a} \Leftrightarrow \vec{b} - k\vec{a} = \vec{0}$ [29, 30].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 11</span>
+              <button class="btn-learn" onclick="toggleLearned(11)">Отметить как выученное</button>
+            </div>
           </div>
+
+          <div class="ticket-card" data-sec="sec2" data-id="12">
+            <div>
+              <div class="card-title">2. Связь компланарности и линейной зависимости 3 векторов</div>
+              <div class="card-body">
+                <p>Теорема: <strong>$\vec{a}, \vec{b}, \vec{c}$ компланарны $\Leftrightarrow$ линейно зависимы</strong> [31].</p>
+                <p>Док-во: $\vec{a}, \vec{b}, \vec{c}$ компланарны $\Leftrightarrow \exists k, l \in \mathbb{R}: \vec{c} = k\vec{a} + l\vec{b} \Leftrightarrow \vec{c} - k\vec{a} - l\vec{b} = \vec{0}$ [30].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 12</span>
+              <button class="btn-learn" onclick="toggleLearned(12)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec2" data-id="13">
+            <div>
+              <div class="card-title">3. Теорема о разложении любого вектора по трем некомпланарным</div>
+              <div class="card-body">
+                <p>Теорема: Любые 3 некомпланарные вектора образуют базис пространства [32].</p>
+                <p>Док-во: $\vec{d} = \vec{OP} + \vec{PD}$, где $\vec{OP}$ компланарен $\vec{a}, \vec{b} \Rightarrow \vec{OP} = k\vec{a} + l\vec{b}$, а $\vec{PD} \parallel \vec{c} \Rightarrow \vec{PD} = m\vec{c} \Rightarrow \vec{d} = k\vec{a} + l\vec{b} + m\vec{c}$ [33].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 13</span>
+              <button class="btn-learn" onclick="toggleLearned(13)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec2" data-id="14">
+            <div>
+              <div class="card-title">4. Базис, типы базисов. На прямой, плоскости, в пространстве</div>
+              <div class="card-body">
+                <p>Определение: Базис — линейно независимая система, по которой можно разложить $\forall$ вектор ($\vec{a} = \sum \alpha_i\vec{e}_i$) [31].</p>
+                <p>Типы: нормированный ($|\vec{e}_i|=1$), ортогональный ($\vec{e}_i \perp \vec{e}_j$), ортонормированный [33, 34].</p>
+                <p>На прямой: 1 ненулевой вектор [32]. На плоскости: 2 неколлинеарных [32]. В пространстве: 3 некомпланарных [32].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 14</span>
+              <button class="btn-learn" onclick="toggleLearned(14)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec2" data-id="15">
+            <div>
+              <div class="card-title">5. Теорема о единственности разложения по базису</div>
+              <div class="card-body">
+                <p>Теорема: Координаты в базисе определяются единственным образом [31].</p>
+                <p>Док-во: Пусть $\vec{a} = \sum \alpha_i\vec{e}_i$ и $\vec{a} = \sum \beta_i\vec{e}_i \Rightarrow \sum (\alpha_i - \beta_i)\vec{e}_i = \vec{0}$ [35]. Т.к. базис независим $\Rightarrow \alpha_i - \beta_i = 0 \Rightarrow \alpha_i = \beta_i$ [35].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 15</span>
+              <button class="btn-learn" onclick="toggleLearned(15)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec2" data-id="16">
+            <div>
+              <div class="card-title">6. Векторная и скалярная проекции. Теорема о вычислении</div>
+              <div class="card-body">
+                <p>Векторная: $\vec{A'B'}$ (проекции точек $A, B$ на ось $l$ с ортом $\vec{e}$) [36].</p>
+                <p>Скалярная: $pr_l \vec{a} = \pm |A'B'|$ (+ если $\uparrow\uparrow$, - если $\uparrow\downarrow$) [36].</p>
+                <p>Теорема: <strong>$pr_l \vec{a} = |\vec{a}| \cos(\widehat{\vec{a}, \vec{e}})$</strong> [37].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 16</span>
+              <button class="btn-learn" onclick="toggleLearned(16)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec2" data-id="17">
+            <div>
+              <div class="card-title">7. Теорема о равенстве проекций вектора и его координат</div>
+              <div class="card-body">
+                <p>В базисе $\vec{i}, \vec{j}, \vec{k}$: <strong>$a_x = pr_{\vec{i}}\vec{a}$</strong>, <strong>$a_y = pr_{\vec{j}}\vec{a}$</strong>, <strong>$a_z = pr_{\vec{k}}\vec{a}$</strong> [38].</p>
+                <p>Док-во: $\vec{a} = \vec{a}_1 + \vec{a}_2 + \vec{a}_3$, где $\vec{a}_1 \parallel \vec{i} \Rightarrow \vec{a}_1 = (pr_{ox}\vec{a})\vec{i}$ и т.д. [38].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 17</span>
+              <button class="btn-learn" onclick="toggleLearned(17)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card extra" data-sec="sec2" data-id="18">
+            <div>
+              <div class="card-title">
+                <span>8. Линейные операции в координатах. Деление отрезка</span>
+                <span class="extra-tag">* Стандартный факт</span>
+              </div>
+              <div class="card-body">
+                <p>$\vec{a} + \vec{b} = (a_x+b_x, a_y+b_y, a_z+b_z)$; $k\vec{a} = (ka_x, ka_y, ka_z)$ [39].</p>
+                <p><em>* (Формула деления отрезка в отношении $\lambda$ отсутствует в источниках)</em>: $x = \frac{x_1 + \lambda x_2}{1 + \lambda}$ (и т.д.).</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 18</span>
+              <button class="btn-learn" onclick="toggleLearned(18)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec2" data-id="19">
+            <div>
+              <div class="card-title">9. Скалярное произведение векторов</div>
+              <div class="card-body">
+                <p><strong>$\vec{a} \cdot \vec{b} = |\vec{a}| |\vec{b}| \cos(\widehat{\vec{a}, \vec{b}})$</strong> [40].</p>
+                <p>В координатах: <strong>$\vec{a} \cdot \vec{b} = a_x b_x + a_y b_y + a_z b_z$</strong> [41].</p>
+                <p>Свойства:</p>
+                <p>1) $\vec{a}\cdot\vec{b} = \vec{b}\cdot\vec{a}$ [42].</p>
+                <p>2) $\vec{a}\cdot\vec{b} = |\vec{a}| \text{пр}_{\vec{a}}\vec{b} = |\vec{b}| \text{пр}_{\vec{b}}\vec{a}$ [42].</p>
+                <p>3) $(\vec{a}+\vec{b})\cdot\vec{c} = \vec{a}\cdot\vec{c} + \vec{b}\cdot\vec{c}$ [42].</p>
+                <p>4) $\vec{a}\cdot\vec{a} = |\vec{a}|^2$ [42].</p>
+                <p>5) $(k\vec{a})\cdot\vec{b} = k(\vec{a}\cdot\vec{b}) = \vec{a}\cdot(k\vec{b})$ [42].</p>
+                <p>6) $(k\vec{a}+l\vec{b})\cdot\vec{c} = k\vec{a}\cdot\vec{c} + l\vec{b}\cdot\vec{c}$ [42].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 19</span>
+              <button class="btn-learn" onclick="toggleLearned(19)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec2" data-id="20">
+            <div>
+              <div class="card-title">10. Векторное произведение векторов</div>
+              <div class="card-body">
+                <p><strong>$\vec{a} \times \vec{b} = \vec{c}$</strong> [43]</p>
+                <p>1) $\vec{c} \perp \vec{a}$ и $\vec{c} \perp \vec{b}$ [44]</p>
+                <p>2) $|\vec{c}| = |\vec{a}||\vec{b}|\sin(\widehat{\vec{a}, \vec{b}})$ [44]</p>
+                <p>3) $&lt;\vec{a}, \vec{b}, \vec{c}&gt;$ - правая [44]</p>
+                <p>В координатах: $\vec{a} \times \vec{b} = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ a_x & a_y & a_z \\ b_x & b_y & b_z \end{vmatrix}$ [45].</p>
+                <p>Свойства:</p>
+                <p>1) $\vec{a}\times\vec{b} = -\vec{b}\times\vec{a}$ [46].</p>
+                <p>2) $\vec{a}\times\vec{a} = \vec{0}$ [46].</p>
+                <p>3) $(\vec{a}+\vec{b})\times\vec{c} = \vec{a}\times\vec{c} + \vec{b}\times\vec{c}$ [46].</p>
+                <p>4) $(k\vec{a})\times\vec{b} = k(\vec{a}\times\vec{b}) = \vec{a}\times(k\vec{b})$ [46].</p>
+                <div class="illustration-note">*[Рисунок: векторы $\vec{a}, \vec{b}$ лежат в одной плоскости и им перпендикулярен $\vec{c}$ (направленный по правилу правой руки)]* [44, 46]</div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 20</span>
+              <button class="btn-learn" onclick="toggleLearned(20)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec2" data-id="21">
+            <div>
+              <div class="card-title">11. Смешанное произведение векторов</div>
+              <div class="card-body">
+                <p><strong>$\vec{a}\vec{b}\vec{c} = \vec{a} \cdot (\vec{b} \times \vec{c})$</strong> [47].</p>
+                <p>Смысл: $\vec{a}\vec{b}\vec{c} = \pm V_{\text{параллелепипеда}}$ (+ правая, - левая) [48].</p>
+                <p>Свойство: <strong>$\vec{a}, \vec{b}, \vec{c}$ компланарны $\Leftrightarrow \vec{a}\vec{b}\vec{c} = 0$</strong> [49, 50].</p>
+                <p>В координатах: $\vec{a}\vec{b}\vec{c} = \begin{vmatrix} a_x & a_y & a_z \\ b_x & b_y & b_z \\ c_x & c_y & c_z \end{vmatrix}$ [51].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 21</span>
+              <button class="btn-learn" onclick="toggleLearned(21)">Отметить как выученное</button>
+            </div>
+          </div>
+
         </div>
       </div>
-    </section>
 
-    <!-- Controls & Filters Header -->
-    <div class="no-print flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-      
-      <!-- Search Bar -->
-      <div class="relative flex-1 max-w-md">
-        <input type="text" id="search-input" oninput="applyFilters()" placeholder="Поиск по теории, формулам, номерам билетов..." 
-               class="w-full pl-9 pr-4 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 shadow-sm transition">
-        <span class="absolute left-3 top-2.5 text-slate-400 text-sm">🔍</span>
+      <!-- РАЗДЕЛ 3 -->
+      <div class="section-container" id="container-sec3">
+        <h2 class="section-header"><span>Раздел 3:</span> Комплексные числа и многочлены</h2>
+        <div class="cards-grid">
+
+          <div class="ticket-card" data-sec="sec3" data-id="22">
+            <div>
+              <div class="card-title">1. Определение. Квадрат мнимой единицы</div>
+              <div class="card-body">
+                <p>$z = (a, b)$, $a, b \in \mathbb{R}$ ($a = \text{Re } z, b = \text{Im } z$) [52].</p>
+                <p>Мнимая единица: <strong>$i = (0, 1)$</strong> [53].</p>
+                <p>Квадрат: $i^2 = (0,1) \cdot (0,1) = (-1,0) = -1 \Rightarrow$ <strong>$i^2 = -1$</strong> [53].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 22</span>
+              <button class="btn-learn" onclick="toggleLearned(22)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec3" data-id="23">
+            <div>
+              <div class="card-title">2. Алгебраическая форма. Действия</div>
+              <div class="card-body">
+                <p><strong>$z = a + bi$</strong> [54].</p>
+                <p>Сложение: $z_1 + z_2 = (a_1+a_2) + (b_1+b_2)i$ [55].</p>
+                <p>Умножение: $z_1 z_2 = (a_1 a_2 - b_1 b_2) + (a_1 b_2 + a_2 b_1)i$ [55].</p>
+                <p>Деление: $\frac{z_1}{z_2} = \frac{z_1 \overline{z_2}}{z_2 \overline{z_2}}$, где $\overline{z_2} = a_2 - b_2 i$ [54, 56].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 23</span>
+              <button class="btn-learn" onclick="toggleLearned(23)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec3" data-id="24">
+            <div>
+              <div class="card-title">3. Тригонометрическая и показательная формы. Действия</div>
+              <div class="card-body">
+                <p>Тригонометрическая: <strong>$z = r(\cos\varphi + i\sin\varphi)$</strong> [57].</p>
+                <p>Показательная: <strong>$z = r e^{i\varphi}$</strong> [58].</p>
+                <p>Умножение: $z_1 z_2 = r_1 r_2 (\cos(\varphi_1+\varphi_2) + i\sin(\varphi_1+\varphi_2))$ [59, 60].</p>
+                <p>Деление: $\frac{z_1}{z_2} = \frac{r_1}{r_2}(\cos(\varphi_1-\varphi_2) + i\sin(\varphi_1-\varphi_2))$ [60].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 24</span>
+              <button class="btn-learn" onclick="toggleLearned(24)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec3" data-id="25">
+            <div>
+              <div class="card-title">4. Возведение в степень и извлечение корня. Формулы Муавра</div>
+              <div class="card-body">
+                <p>Возведение (1-я ф-ла Муавра): <strong>$z^n = r^n(\cos n\varphi + i\sin n\varphi)$</strong> [61].</p>
+                <p>Извлечение корня (2-я ф-ла Муавра): <strong>$\sqrt[n]{z} = \sqrt[n]{r}\left(\cos\frac{\varphi+2\pi k}{n} + i\sin\frac{\varphi+2\pi k}{n}\right)$</strong>, $k = 0, \dots, n-1$ [62, 63].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 25</span>
+              <button class="btn-learn" onclick="toggleLearned(25)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec3" data-id="26">
+            <div>
+              <div class="card-title">5. Показательная форма. Формулы Эйлера</div>
+              <div class="card-body">
+                <p>Показательная: $z = r e^{i\varphi}$ [58].</p>
+                <p>Формула Эйлера: <strong>$e^{i\varphi} = \cos\varphi + i\sin\varphi$</strong> [58].</p>
+                <p>Следствия: $e^{i\pi} = -1$; $\cos\varphi = \frac{e^{i\varphi} + e^{-i\varphi}}{2}$; $\sin\varphi = \frac{e^{i\varphi} - e^{-i\varphi}}{2i}$ [64].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 26</span>
+              <button class="btn-learn" onclick="toggleLearned(26)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec3" data-id="27">
+            <div>
+              <div class="card-title">6. Линейное пространство многочленов $\mathcal{P}_n$. Деление. Схема Горнера</div>
+              <div class="card-body">
+                <p>$\mathcal{P}_n = \{P(z) \mid \deg P(z) \le n\}$ — линейное пространство [65].</p>
+                <p>Деление с остатком: $P(z) = Q(z)S(z) + R(z)$, $\deg R < \deg Q$ [66, 67].</p>
+                <p>Схема Горнера (на $(z-c)$): таблица, где $b_k = a_k + c b_{k-1}$ [68, 69]. В последней ячейке — остаток [69].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 27</span>
+              <button class="btn-learn" onclick="toggleLearned(27)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec3" data-id="28">
+            <div>
+              <div class="card-title">7. Теорема Безу и следствие</div>
+              <div class="card-body">
+                <p>Теорема: Остаток от деления $P(z)$ на $(z-c)$ равен <strong>$P(c)$</strong> [70].</p>
+                <p>Следствие: Если $c$ — корень, то $P(z)$ делится на $(z-c)$ без остатка $\Rightarrow P(z) = (z-c)Q(z)$ [70].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 28</span>
+              <button class="btn-learn" onclick="toggleLearned(28)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec3" data-id="29">
+            <div>
+              <div class="card-title">8. Основная теорема алгебры и разложение</div>
+              <div class="card-body">
+                <p>Теорема (Гаусс): $\forall P(z), \deg P \ge 1 \Rightarrow \exists$ корень $c \in \mathbb{C}: P(c) = 0$ [71].</p>
+                <p>Разложение: Многочлен имеет ровно $n$ корней и единственное разложение: <strong>$P(z) = a_0(z-c_1)\dots(z-c_n)$</strong> [72].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 29</span>
+              <button class="btn-learn" onclick="toggleLearned(29)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec3" data-id="30">
+            <div>
+              <div class="card-title">9. Свойства сопряженных. Корни многочлена с веществ. коэффициентами</div>
+              <div class="card-body">
+                <p>Теорема: Если $c = a+bi$ — корень $P(x)$ (веществ. коэффициенты) кратности $k$, то сопряженное <strong>$\overline{c} = a-bi$ также корень кратности $k$</strong> [73].</p>
+                <p>Многочлен делится на $(x^2 - 2ax + a^2 + b^2)$ [74].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 30</span>
+              <button class="btn-learn" onclick="toggleLearned(30)">Отметить как выученное</button>
+            </div>
+          </div>
+
+          <div class="ticket-card" data-sec="sec3" data-id="31">
+            <div>
+              <div class="card-title">10. Простейшие дроби. Разложение рациональной дроби</div>
+              <div class="card-body">
+                <p>4 типа дробей: I. $\frac{A}{x-a}$, II. $\frac{A}{(x-a)^k}$, III. $\frac{Mx+N}{x^2+px+q}$, IV. $\frac{Mx+N}{(x^2+px+q)^k}$ ($D<0$) [75, 76].</p>
+                <p>Теорема: Всякую правильную рациональную дробь можно <strong>единственным образом</strong> представить как конечную сумму простейших дробей [76].</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Билет 31</span>
+              <button class="btn-learn" onclick="toggleLearned(31)">Отметить как выученное</button>
+            </div>
+          </div>
+
+        </div>
       </div>
 
-      <!-- Category Filter Tabs -->
-      <div class="flex flex-wrap gap-1.5 text-xs font-medium" id="filter-tabs">
-        <button onclick="setCategoryFilter('all')" data-cat="all" class="tab-btn px-3 py-1.5 rounded-lg bg-slate-900 text-white shadow-sm">Все (31)</button>
-[30.10.2026 16:23] Kirill: <button onclick="setCategoryFilter('sec1')" data-cat="sec1" class="tab-btn px-3 py-1.5 rounded-lg bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">1. Алгебра (10)</button>
-        <button onclick="setCategoryFilter('sec2')" data-cat="sec2" class="tab-btn px-3 py-1.5 rounded-lg bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">2. Векторы (11)</button>
-        <button onclick="setCategoryFilter('sec3')" data-cat="sec3" class="tab-btn px-3 py-1.5 rounded-lg bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">3. Комплексные & Многочлены (10)</button>
-        <button onclick="setCategoryFilter('extra')" data-cat="extra" class="tab-btn px-3 py-1.5 rounded-lg bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200">Из внешних источников (*)</button>
-      </div>
     </div>
 
-    <!-- Cards Container View (Default Interactive Mode) -->
-    <div id="cards-view" class="space-y-8">
-      
-      <!-- Section 1 Container -->
-      <section id="section-1" class="ticket-section">
-        <div class="flex items-center space-x-2 border-b-2 border-slate-200 pb-2 mb-4">
-          <span class="text-amber-600 font-bold text-lg">Раздел 1.</span>
-          <h2 class="text-xl font-bold text-slate-900">Алгебра</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="cards-grid-sec1">
-          <!-- Dynamically Populated or Static HTML markup -->
-        </div>
-      </section>
-
-      <!-- Section 2 Container -->
-      <section id="section-2" class="ticket-section">
-        <div class="flex items-center space-x-2 border-b-2 border-slate-200 pb-2 mb-4">
-          <span class="text-amber-600 font-bold text-lg">Раздел 2.</span>
-          <h2 class="text-xl font-bold text-slate-900">Векторы</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="cards-grid-sec2">
-          <!-- Dynamically Populated -->
-        </div>
-      </section>
-
-      <!-- Section 3 Container -->
-      <section id="section-3" class="ticket-section">
-        <div class="flex items-center space-x-2 border-b-2 border-slate-200 pb-2 mb-4">
-          <span class="text-amber-600 font-bold text-lg">Раздел 3.</span>
-          <h2 class="text-xl font-bold text-slate-900">Комплексные числа и многочлены</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="cards-grid-sec3">
-          <!-- Dynamically Populated -->
-        </div>
-      </section>
-
-    </div>
-
-    <!-- Full Document Linear Printable View (Hidden by default, shown in doc mode or print) -->
-    <div id="document-view" class="hidden bg-white p-6 md:p-10 rounded-xl border border-slate-200 shadow-sm space-y-6">
-      <div class="border-b pb-4 mb-6 text-center">
-        <h1 class="text-2xl font-bold text-slate-900">ОТВЕТЫ-КОНСПЕКТЫ К КОЛЛОКВИУМУ ПО ВЫСШЕЙ МАТЕМАТИКЕ</h1>
-        <p class="text-xs text-slate-500 mt-1">Формат: минимум слов, максимум математической символики</p>
-      </div>
-      <div id="document-content" class="space-y-6 text-sm text-slate-800 leading-relaxed">
-        <!-- Rendered linearly for print & export -->
-      </div>
+    <!-- Режим документа (для чтения и печати) -->
+    <div id="document-view">
+      <div id="document-rendered-content"></div>
     </div>
 
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-white border-t border-slate-200 mt-12 py-4 text-center text-xs text-slate-500 no-print">
-    Подготовлено для выгрузки в Google Диск, печати и интерактивной подготовки к коллоквиуму.
-  </footer>
-
-  <!-- JavaScript Data & Logic -->
   <script>
-    // Full Data set with preserved exact content
-    const ticketsData = [
-      // Section 1
-      {
-        id: 1,
-        sec: 1,
-        title: "1. Вывод правила Крамера для линейной системы 2х2",
-        extra: false,
-        text: Система: $\\begin{cases} a_1 x + b_1 y = c_1 \\\\ a_2 x + b_2 y = c_2 \\end{cases}$ [1].<br> +
-              Умножаем 1-е ур-ние на $b_2$, 2-е на $b_1$, вычитаем [1].<br> +
-[30.10.2026 16:23] Kirill: $x(a_1 b_2 - a_2 b_1) = b_2 c_1 - b_1 c_2$ [2].<br> +
-              Обозначим **$\\Delta = a_1 b_2 - a_2 b_1$**.<br> +
-              Если $\\Delta \\neq 0 \\Rightarrow x = \\frac{\\Delta_x}{\\Delta}$, где $\\Delta_x = b_2 c_1 - b_1 c_2$ [2, 3].<br> +
-              Аналогично: $y = \\frac{\\Delta_y}{\\Delta}$, где $\\Delta_y = a_1 c_2 - a_2 c_1$ [2, 3].
-      },
-      {
-        id: 2,
-        sec: 1,
-        title: "2. Свойства определителей",
-        extra: false,
-        text: 1) Содержит две одинаковых строки (столбца) $\\Rightarrow \\Delta = 0$ [4].<br> +
-              2) Элементы строки (столбца) — сумма двух слагаемых $\\Rightarrow \\Delta = \\Delta' + \\Delta''$ [5].<br> +
-              3) Общий множитель строки (столбца) можно выносить за знак определителя [5].<br> +
-              4) При транспонировании $\\Delta$ не меняется: $\\det A = \\det A^T$ [6].<br> +
-              5) При перестановке двух любых строк (столбцов) $\\Delta$ меняет знак [6].<br> +
-              6) $\\Delta$ не изменится, если к строке (столбцу) прибавить параллельную строку (столбец), умноженную на $k$ [6].
-      },
-      {
-        id: 3,
-        sec: 1,
-        title: "3. Разложение определителя по строке (столбцу). Следствие",
-        extra: false,
-        text: Теорема: **$\\det A = \\sum_{j=1}^n a_{1j} A_{1j}$** (сумма произведений элементов на алгебр. дополнения $A_{ij} = (-1)^{i+j} M_{ij}$) [7-9].<br> +
-              **Следствие:** Сумма произведений элементов ряда на алг. дополнения параллельного ряда равна нулю: $\\sum_{j=1}^n a_{1j} A_{2j} = 0$ [10].
-      },
-      {
-        id: 4,
-        sec: 1,
-        title: "4. Вычисление определителя Вандермонда 3-го порядка *",
-        extra: true,
-        text: * (Отсутствует в источниках, стандартный факт):<br> +
-              $V_3 = \\begin{vmatrix} 1 & 1 & 1 \\\\ x_1 & x_2 & x_3 \\\\ x_1^2 & x_2^2 & x_3^2 \\end{vmatrix} = (x_2 - x_1)(x_3 - x_1)(x_3 - x_2)$.<br> +
-              Вывод: Вычитаем 1-й столбец из 2-го и 3-го, выносим множители $(x_2-x_1)$ и $(x_3-x_1)$, раскладываем по 1-й строке.
-      },
-      {
-        id: 5,
-        sec: 1,
-        title: "5. Линейное пространство матриц. Линейные операции и их свойства",
-        extra: false,
-        text: Сложение: $C = A + B \\Leftrightarrow c_{ij} = a_{ij} + b_{ij}$ [11].<br> +
-              Умножение на число: $\\lambda A \\Leftrightarrow \\lambda a_{ij}$ [11].<br> +
-              Свойства:<br> +
-              1) $A+B=B+A$ [12];<br> +
-              2) $(A+B)+C=A+(B+C)$ [12];<br> +
-              3) $\\exists 0: A+0=A$ [12];<br> +
-              4) $\\exists (-A): A+(-A)=0$ [13];<br> +
-              5) $\\lambda(\\mu A)=(\\lambda\\mu)A$ [13];<br> +
-              6) $(\\lambda+\\mu)A=\\lambda A+\\mu A$ [13];<br> +
-              7) $\\lambda(A+B)=\\lambda A+\\lambda B$ [13];<br> +
-              8) $1 \\cdot A=A$ [13].
-      },
-      {
-        id: 6,
-        sec: 1,
-        title: "6. Умножение матриц и его свойства. Доказательство дистрибутивности *",
-        extra: true,
-        text: **$c_{ij} = \\sum_{k=1}^m a_{ik} b_{kj}$** (строка на столбец) [14, 15].<br> +
-              Свойства: 1) $(AB)C=A(BC)$; 2) $\\lambda(AB)=(\\lambda A)B=A(\\lambda B)$; 3) $(A+B)C=AC+BC$; 4) $A(B+C)=AB+AC$; 5) $AE=EA=A$ [16].<br> +
-              * (Док-во дистрибутивности отсутствует в источниках):<br> +
-              $c_{ij} = \\sum_{k} (a_{ik}+b_{ik})d_{kj} = \\sum_{k} a_{ik}d_{kj} + \\sum_{k} b_{ik}d_{kj} \\Rightarrow (A+B)D = AD+BD$.
-      },
-      {
-        id: 7,
-        sec: 1,
-        title: "7. Обратная матрица. Условие существования. Теорема",
-        extra: false,
-        text: Определение: **$A A^{-1} = A^{-1} A = E$** [17].<br> +
-              Условие: $\\det A \\neq 0$ (матрица невырожденная) [17].<br> +
-[30.10.2026 16:23] Kirill: Теорема: Всякая невырожденная матрица имеет единственную обратную: **$A^{-1} = \\frac{1}{\\det A} A^V$**, где $A^V = (A_{ij})^T$ (присоединенная матрица) [18, 19].
-      },
-      {
-        id: 8,
-        sec: 1,
-        title: "8. Метод Гаусса. Критерий Кронекера-Капелли",
-        extra: false,
-        text: Метод Гаусса: Элементарные преобразования $\\rightarrow$ ступенчатый вид (прямой ход), выражение базисных переменных (обратный ход) [20-22].<br> +
-              Критерий: **Система совместна $\\Leftrightarrow \\text{rank} A = \\text{rank} \\overline{A}$** [23].<br> +
-              • $\\text{rank} A = \\text{rank} \\overline{A} = n \\Rightarrow$ ед. решение [23].<br> +
-              • $\\text{rank} A = \\text{rank} \\overline{A} < n \\Rightarrow \\infty$ решений [23].
-      },
-      {
-        id: 9,
-        sec: 1,
-        title: "9. Необходимое и достаточное условие нетривиального решения однородной системы пхп",
-        extra: false,
-        text: Теорема: **ЛОС имеет ненулевое решение $\\Leftrightarrow \\det A = 0$** [24].<br> +
-              Док-во (необходимость): Если $\\det A \\neq 0$, система крамеровская $\\Rightarrow$ решение только одно (нулевое) [24].<br> +
-              Док-во (достаточность): Если $\\det A = 0 \\Rightarrow \\text{rank} A = r < n \\Rightarrow \\exists (n-r)$ свободных переменных $\\Rightarrow \\exists$ ненулевые решения [25].
-      },
-      {
-        id: 10,
-        sec: 1,
-        title: "10. Собственные числа и собственные векторы. Характеристическое уравнение",
-        extra: false,
-        text: $\\vec{X} \\neq \\vec{0}$ — собственный вектор матрицы $A$, $\\lambda$ — собственное число, если **$A\\vec{X} = \\lambda\\vec{X}$** [25].<br> +
-              Вывод: $A\\vec{X} = \\lambda E\\vec{X} \\Leftrightarrow (A - \\lambda E)\\vec{X} = \\vec{0}$ [26].<br> +
-              Т.к. $\\vec{X} \\neq \\vec{0}$, матрица вырождена $\\Rightarrow$ **$\\det(A - \\lambda E) = 0$** (характеристическое уравнение) [26, 27].
-      },
+    let activeFilter = 'all';
+    let learnedTickets = new Set(JSON.parse(localStorage.getItem('learned_math_tickets') || '[]'));
 
-      // Section 2
-      {
-        id: 11,
-        sec: 2,
-        title: "1. Связь коллинеарности и линейной зависимости 2 векторов",
-        extra: false,
-        text: Теорема: **$\\vec{a} \\parallel \\vec{b} \\Leftrightarrow$ линейно зависимы** [28].<br> +
-              Док-во: Если $\\vec{b} \\neq \\vec{0}$, $\\vec{a} \\parallel \\vec{b} \\Leftrightarrow \\exists k \\in \\mathbb{R}: \\vec{b} = k\\vec{a} \\Leftrightarrow \\vec{b} - k\\vec{a} = \\vec{0}$ [29, 30].
-      },
-      {
-        id: 12,
-        sec: 2,
-        title: "2. Связь компланарности и линейной зависимости 3 векторов",
-        extra: false,
-        text: Теорема: **$\\vec{a}, \\vec{b}, \\vec{c}$ компланарны $\\Leftrightarrow$ линейно зависимы** [31].<br> +
-              Док-во: $\\vec{a}, \\vec{b}, \\vec{c}$ компланарны $\\Leftrightarrow \\exists k, l \\in \\mathbb{R}: \\vec{c} = k\\vec{a} + l\\vec{b} \\Leftrightarrow \\vec{c} - k\\vec{a} - l\\vec{b} = \\vec{0}$ [30].
-      },
-      {
-        id: 13,
-        sec: 2,
-        title: "3. Теорема о разложении любого вектора по трем некомпланарным",
-        extra: false,
-        text: Теорема: Любые 3 некомпланарные вектора образуют базис пространства [32].<br> +
-              Док-во: $\\vec{d} = \\vec{OP} + \\vec{PD}$, где $\\vec{OP}$ компланарен $\\vec{a}, \\vec{b} \\Rightarrow \\vec{OP} = k\\vec{a} + l\\vec{b}$, а $\\vec{PD} \\parallel \\vec{c} \\Rightarrow \\vec{PD} = m\\vec{c} \\Rightarrow \\vec{d} = k\\vec{a} + l\\vec{b} + m\\vec{c}$ [33].
-      },
-      {
-        id: 14,
-        sec: 2,
-        title: "4. Базис, типы базисов. На прямой, плоскости, в пространстве",
-        extra: false,
-        text: Определение: Базис — линейно независимая система, по которой можно разложить $\\forall$ вектор ($\\vec{a} = \\sum \\alpha_i\\vec{e}_i$) [31].<br> +
-[30.10.2026 16:23] Kirill: Типы: нормированный ($|\\vec{e}_i|=1$), ортогональный ($\\vec{e}_i \\perp \\vec{e}_j$), ортонормированный [33, 34].<br> +
-              На прямой: 1 ненулевой вектор [32]. На плоскости: 2 неколлинеарных [32]. В пространстве: 3 некомпланарных [32].
-      },
-      {
-        id: 15,
-        sec: 2,
-        title: "5. Теорема о единственности разложения по базису",
-        extra: false,
-        text: Теорема: Координаты в базисе определяются единственным образом [31].<br> +
-              Док-во: Пусть $\\vec{a} = \\sum \\alpha_i\\vec{e}_i$ и $\\vec{a} = \\sum \\beta_i\\vec{e}_i \\Rightarrow \\sum (\\alpha_i - \\beta_i)\\vec{e}_i = \\vec{0}$ [35]. Т.к. базис независим $\\Rightarrow \\alpha_i - \\beta_i = 0 \\Rightarrow \\alpha_i = \\beta_i$ [35].
-      },
-      {
-        id: 16,
-        sec: 2,
-        title: "6. Векторная и скалярная проекции. Теорема о вычислении",
-        extra: false,
-        text: Векторная: $\\vec{A'B'}$ (проекции точек $A, B$ на ось $l$ с ортом $\\vec{e}$) [36].<br> +
-              Скалярная: $pr_l \\vec{a} = \\pm |A'B'|$ (+ если $\\uparrow\\uparrow$, - если $\\uparrow\\downarrow$) [36].<br> +
-              Теорема: **$pr_l \\vec{a} = |\\vec{a}| \\cos(\\widehat{\\vec{a}, \\vec{e}})$** [37].
-      },
-      {
-        id: 17,
-        sec: 2,
-        title: "7. Теорема о равенстве проекций вектора и его координат",
-        extra: false,
-        text: В базисе $\\vec{i}, \\vec{j}, \\vec{k}$: **$a_x = pr_{\\vec{i}}\\vec{a}$**, **$a_y = pr_{\\vec{j}}\\vec{a}$**, **$a_z = pr_{\\vec{k}}\\vec{a}$** [38].<br> +
-              Док-во: $\\vec{a} = \\vec{a}_1 + \\vec{a}_2 + \\vec{a}_3$, где $\\vec{a}_1 \\parallel \\vec{i} \\Rightarrow \\vec{a}_1 = (pr_{ox}\\vec{a})\\vec{i}$ и т.д. [38].
-      },
-      {
-        id: 18,
-        sec: 2,
-        title: "8. Линейные операции в координатах. Деление отрезка *",
-        extra: true,
-        text: $\\vec{a} + \\vec{b} = (a_x+b_x, a_y+b_y, a_z+b_z)$; $k\\vec{a} = (ka_x, ka_y, ka_z)$ [39].<br> +
-              * (Формула деления отрезка в отношении $\\lambda$ отсутствует в источниках): $x = \\frac{x_1 + \\lambda x_2}{1 + \\lambda}$ (и т.д.).
-      },
-      {
-        id: 19,
-        sec: 2,
-        title: "9. Скалярное произведение векторов",
-        extra: false,
-        text: **$\\vec{a} \\cdot \\vec{b} = |\\vec{a}| |\\vec{b}| \\cos(\\widehat{\\vec{a}, \\vec{b}})$** [40].<br> +
-              В координатах: **$\\vec{a} \\cdot \\vec{b} = a_x b_x + a_y b_y + a_z b_z$** [41].<br> +
-              Свойства:<br> +
-              1) $\\vec{a}\\cdot\\vec{b} = \\vec{b}\\cdot\\vec{a}$ [42].<br> +
-              2) $\\vec{a}\\cdot\\vec{b} = |\\vec{a}| \\text{пр}_{\\vec{a}}\\vec{b} = |\\vec{b}| \\text{пр}_{\\vec{b}}\\vec{a}$ [42].<br> +
-              3) $(\\vec{a}+\\vec{b})\\cdot\\vec{c} = \\vec{a}\\cdot\\vec{c} + \\vec{b}\\cdot\\vec{c}$ [42].<br> +
-              4) $\\vec{a}\\cdot\\vec{a} = |\\vec{a}|^2$ [42].<br> +
-              5) $(k\\vec{a})\\cdot\\vec{b} = k(\\vec{a}\\cdot\\vec{b}) = \\vec{a}\\cdot(k\\vec{b})$ [42].<br> +
-              6) $(k\\vec{a}+l\\vec{b})\\cdot\\vec{c} = k\\vec{a}\\cdot\\vec{c} + l\\vec{b}\\cdot\\vec{c}$ [42].
-      },
-      {
-        id: 20,
-        sec: 2,
-        title: "10. Векторное произведение векторов",
-        extra: false,
-        text: **$\\vec{a} \\times \\vec{b} = \\vec{c}$** [43]<br> +
-              1) $\\vec{c} \\perp \\vec{a}$ и $\\vec{c} \\perp \\vec{b}$ [44]<br> +
-              2) $|\\vec{c}| = |\\vec{a}||\\vec{b}|\\sin(\\widehat{\\vec{a}, \\vec{b}})$ [44]<br> +
-              3) $<\\vec{a}, \\vec{b}, \\vec{c}>$ - правая [44]<br> +
-              В координатах: $\\vec{a} \\times \\vec{b} = \\begin{vmatrix} \\vec{i} & \\vec{j} & \\vec{k} \\\\ a_x & a_y & a_z \\\\ b_x & b_y & b_z \\end{vmatrix}$ [45].<br> +
-[30.10.2026 16:23] Kirill: Свойства:<br> +
-              1) $\\vec{a}\\times\\vec{b} = -\\vec{b}\\times\\vec{a}$ [46].<br> +
-              2) $\\vec{a}\\times\\vec{a} = \\vec{0}$ [46].<br> +
-              3) $(\\vec{a}+\\vec{b})\\times\\vec{c} = \\vec{a}\\times\\vec{c} + \\vec{b}\\times\\vec{c}$ [46].<br> +
-              4) $(k\\vec{a})\\times\\vec{b} = k(\\vec{a}\\times\\vec{b}) = \\vec{a}\\times(k\\vec{b})$ [46].<br> +
-              <div class="mt-2 p-2 bg-slate-100 rounded text-xs text-slate-600 border border-slate-200">*[Рисунок: векторы $\\vec{a}, \\vec{b}$ лежат в одной плоскости и им перпендикулярен $\\vec{c}$ (направленный по правилу правой руки)]* [44, 46]</div>
-      },
-      {
-        id: 21,
-        sec: 2,
-        title: "11. Смешанное произведение векторов",
-        extra: false,
-        text: **$\\vec{a}\\vec{b}\\vec{c} = \\vec{a} \\cdot (\\vec{b} \\times \\vec{c})$** [47].<br> +
-              Смысл: $\\vec{a}\\vec{b}\\vec{c} = \\pm V_{\\text{параллелепипеда}}$ (+ правая, - левая) [48].<br> +
-              Свойство: **$\\vec{a}, \\vec{b}, \\vec{c}$ компланарны $\\Leftrightarrow \\vec{a}\\vec{b}\\vec{c} = 0$** [49, 50].<br> +
-              В координатах: $\\vec{a}\\vec{b}\\vec{c} = \\begin{vmatrix} a_x & a_y & a_z \\\\ b_x & b_y & b_z \\\\ c_x & c_y & c_z \\end{vmatrix}$ [51].
-      },
-
-      // Section 3
-      {
-        id: 22,
-        sec: 3,
-        title: "1. Определение. Квадрат мнимой единицы",
-        extra: false,
-        text: $z = (a, b)$, $a, b \\in \\mathbb{R}$ ($a = \\text{Re } z, b = \\text{Im } z$) [52].<br> +
-              Мнимая единица: **$i = (0, 1)$** [53].<br> +
-              Квадрат: $i^2 = (0,1) \\cdot (0,1) = (-1,0) = -1 \\Rightarrow$ **$i^2 = -1$** [53].
-      },
-      {
-        id: 23,
-        sec: 3,
-        title: "2. Алгебраическая форма. Действия",
-        extra: false,
-        text: **$z = a + bi$** [54].<br> +
-              Сложение: $z_1 + z_2 = (a_1+a_2) + (b_1+b_2)i$ [55].<br> +
-              Умножение: $z_1 z_2 = (a_1 a_2 - b_1 b_2) + (a_1 b_2 + a_2 b_1)i$ [55].<br> +
-              Деление: $\\frac{z_1}{z_2} = \\frac{z_1 \\overline{z_2}}{z_2 \\overline{z_2}}$, где $\\overline{z_2} = a_2 - b_2 i$ [54, 56].
-      },
-      {
-        id: 24,
-        sec: 3,
-        title: "3. Тригонометрическая и показательная формы. Действия",
-        extra: false,
-        text: Тригонометрическая: **$z = r(\\cos\\varphi + i\\sin\\varphi)$** [57].<br> +
-              Показательная: **$z = r e^{i\\varphi}$** [58].<br> +
-              Умножение: $z_1 z_2 = r_1 r_2 (\\cos(\\varphi_1+\\varphi_2) + i\\sin(\\varphi_1+\\varphi_2))$ [59, 60].<br> +
-              Деление: $\\frac{z_1}{z_2} = \\frac{r_1}{r_2}(\\cos(\\varphi_1-\\varphi_2) + i\\sin(\\varphi_1-\\varphi_2))$ [60].
-      },
-      {
-        id: 25,
-        sec: 3,
-        title: "4. Возведение в степень и извлечение корня. Формулы Муавра",
-        extra: false,
-        text: Возведение (1-я ф-ла Муавра): **$z^n = r^n(\\cos n\\varphi + i\\sin n\\varphi)$** [61].<br> +
-              Извлечение корня (2-я ф-ла Муавра): **$\\sqrt[n]{z} = \\sqrt[n]{r}\\left(\\cos\\frac{\\varphi+2\\pi k}{n} + i\\sin\\frac{\\varphi+2\\pi k}{n}\\right)$**, $k = 0, \\dots, n-1$ [62, 63].
-      },
-      {
-        id: 26,
-        sec: 3,
-        title: "5. Показательная форма. Формулы Эйлера",
-        extra: false,
-        text: Показательная: $z = r e^{i\\varphi}$ [58].<br> +
-              Формула Эйлера: **$e^{i\\varphi} = \\cos\\varphi + i\\sin\\varphi$** [58].<br> +
-              Следствия: $e^{i\\pi} = -1$; $\\cos\\varphi = \\frac{e^{i\\varphi} + e^{-i\\varphi}}{2}$; $\\sin\\varphi = \\frac{e^{i\\varphi} - e^{-i\\varphi}}{2i}$ [64].
-      },
-      {
-        id: 27,
-        sec: 3,
-        title: "6. Линейное пространство многочленов $\\mathcal{P}_n$. Деление. Схема Горнера",
-[30.10.2026 16:23] Kirill: extra: false,
-        text: $\\mathcal{P}_n = \\{P(z) \\mid \\deg P(z) \\le n\\}$ — линейное пространство [65].<br> +
-              Деление с остатком: $P(z) = Q(z)S(z) + R(z)$, $\\deg R < \\deg Q$ [66, 67].<br> +
-              Схема Горнера (на $(z-c)$): таблица, где $b_k = a_k + c b_{k-1}$ [68, 69]. В последней ячейке — остаток [69].
-      },
-      {
-        id: 28,
-        sec: 3,
-        title: "7. Теорема Безу и следствие",
-        extra: false,
-        text: Теорема: Остаток от деления $P(z)$ на $(z-c)$ равен **$P(c)$** [70].<br> +
-              Следствие: Если $c$ — корень, то $P(z)$ делится на $(z-c)$ без остатка $\\Rightarrow P(z) = (z-c)Q(z)$ [70].
-      },
-      {
-        id: 29,
-        sec: 3,
-        title: "8. Основная теорема алгебры и разложение",
-        extra: false,
-        text: Теорема (Гаусс): $\\forall P(z), \\deg P \\ge 1 \\Rightarrow \\exists$ корень $c \\in \\mathbb{C}: P(c) = 0$ [71].<br> +
-              Разложение: Многочлен имеет ровно $n$ корней и единственное разложение: **$P(z) = a_0(z-c_1)\\dots(z-c_n)$** [72].
-      },
-      {
-        id: 30,
-        sec: 3,
-        title: "9. Свойства сопряженных. Корни многочлена с веществ. коэффициентами",
-        extra: false,
-        text: Теорема: Если $c = a+bi$ — корень $P(x)$ (веществ. коэффициенты) кратности $k$, то сопряженное **$\\overline{c} = a-bi$ также корень кратности $k$** [73].<br> +
-              Многочлен делится на $(x^2 - 2ax + a^2 + b^2)$ [74].
-      },
-      {
-        id: 31,
-        sec: 3,
-        title: "10. Простейшие дроби. Разложение рациональной дроби",
-        extra: false,
-        text: 4 типа дробей: I. $\\frac{A}{x-a}$, II. $\\frac{A}{(x-a)^k}$, III. $\\frac{Mx+N}{x^2+px+q}$, IV. $\\frac{Mx+N}{(x^2+px+q)^k}$ ($D<0$) [75, 76].<br> +
-              Теорема: Всякую правильную рациональную дробь можно **единственным образом** представить как конечную сумму простейших дробей [76].
-      }
-    ];
-
-    // State
-    let activeCategory = 'all';
-    let learnedSet = new Set(JSON.parse(localStorage.getItem('learned_tickets') || '[]'));
-    let isDocumentMode = false;
-    let chartInstance = null;
-
-    // Initialize App
+    // Применение сохраненного прогресса
     document.addEventListener('DOMContentLoaded', () => {
-      renderCards();
-      renderDocument();
-      initChart();
-      updateLearnedCounter();
+      learnedTickets.forEach(id => {
+        const card = document.querySelector(`.ticket-card[data-id="${id}"]`);
+        if (card) {
+          card.classList.add('learned');
+          const btn = card.querySelector('.btn-learn');
+          if (btn) btn.textContent = '✓ Выучено';
+        }
+      });
+      generateDocumentContent();
     });
 
-    // Render Grid Cards
-    function renderCards() {
-      const g1 = document.getElementById('cards-grid-sec1');
-      const g2 = document.getElementById('cards-grid-sec2');
-      const g3 = document.getElementById('cards-grid-sec3');
+    // Фильтрация карточек
+    function setFilter(cat, btn) {
+      activeFilter = cat;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterCards();
+    }
 
-      g1.innerHTML = '';
-      g2.innerHTML = '';
-      g3.innerHTML = '';
-
+    function filterCards() {
       const query = document.getElementById('search-input').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.ticket-card');
 
-      ticketsData.forEach(t => {
-        // Filter Check
-        let matchesCat = false;
-        if (activeCategory === 'all') matchesCat = true;
-        else if (activeCategory === 'sec1' && t.sec === 1) matchesCat = true;
-        else if (activeCategory === 'sec2' && t.sec === 2) matchesCat = true;
-        else if (activeCategory === 'sec3' && t.sec === 3) matchesCat = true;
-        else if (activeCategory === 'extra' && t.extra) matchesCat = true;
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        const sec = card.getAttribute('data-sec');
+        const isExtra = card.classList.contains('extra');
 
-        const matchesQuery = t.title.toLowerCase().includes(query) || t.text.toLowerCase().includes(query);
+        let matchesCat = (activeFilter === 'all') ||
+                         (activeFilter === sec) ||
+                         (activeFilter === 'extra' && isExtra);
 
-        if (matchesCat && matchesQuery) {
-          const isLearned = learnedSet.has(t.id);
-          const cardHtml = `
-            <div class="card-box bg-white rounded-xl p-4 border ${isLearned ? 'border-emerald-300 bg-emerald-50/20' : 'border-slate-200'} shadow-sm hover:shadow-md transition flex flex-col justify-between">
-              <div>
-                <div class="flex items-start justify-between gap-2 mb-2">
-                  <h3 class="text-sm font-bold text-slate-900 leading-snug">
-[30.10.2026 16:23] Kirill: ${t.title}
-                  </h3>
-                  ${t.extra ? '<span class="shrink-0 px-2 py-0.5 bg-amber-100 text-amber-800 rounded text-[10px] font-semibold border border-amber-200">* Из внешних источников</span>' : ''}
-                </div>
-                <div class="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal space-y-1">
-                  ${t.text}
-                </div>
-              </div>
-              <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between no-print">
-                <span class="text-[11px] text-slate-400">Билет #${t.id}</span>
-                <button onclick="toggleLearned(${t.id})" class="px-2.5 py-1 rounded text-xs font-medium transition flex items-center gap-1 ${isLearned ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
-                  ${isLearned ? '✓ Выучено' : 'Отметить как выученное'}
-                </button>
-              </div>
-            </div>
-          ;
+        let matchesSearch = text.includes(query);
 
-          if (t.sec === 1) g1.insertAdjacentHTML('beforeend', cardHtml);
-          if (t.sec === 2) g2.insertAdjacentHTML('beforeend', cardHtml);
-          if (t.sec === 3) g3.insertAdjacentHTML('beforeend', cardHtml);
+        if (matchesCat && matchesSearch) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
         }
       });
 
-      // Show/Hide section headers if empty
-      document.getElementById('section-1').style.display = g1.children.length ? 'block' : 'none';
-      document.getElementById('section-2').style.display = g2.children.length ? 'block' : 'none';
-      document.getElementById('section-3').style.display = g3.children.length ? 'block' : 'none';
+      // Скрытие пустых секций
+      ['sec1', 'sec2', 'sec3'].forEach(s => {
+        const container = document.getElementById(`container-${s}`);
+        const visibleCards = container.querySelectorAll('.ticket-card[style="display: flex;"]');
+        const hasNoneStyled = Array.from(container.querySelectorAll('.ticket-card')).some(c => c.style.display !== 'none');
+        container.style.display = (visibleCards.length > 0 || (query === '' && (activeFilter === 'all' || activeFilter === s))) ? 'block' : 'none';
+      });
+    }
 
-      // Re-trigger MathJax Typeset
-      if (window.MathJax && MathJax.typesetPromise) {
-        MathJax.typesetPromise();
+    // Отметка "Выучено"
+    function toggleLearned(id) {
+      const card = document.querySelector(`.ticket-card[data-id="${id}"]`);
+      if (!card) return;
+      const btn = card.querySelector('.btn-learn');
+
+      if (learnedTickets.has(id)) {
+        learnedTickets.delete(id);
+        card.classList.remove('learned');
+        btn.textContent = 'Отметить как выученное';
+      } else {
+        learnedTickets.add(id);
+        card.classList.add('learned');
+        btn.textContent = '✓ Выучено';
+      }
+
+      localStorage.setItem('learned_math_tickets', JSON.stringify([...learnedTickets]));
+    }
+
+    // Переключение режима карточек / документа
+    function toggleView() {
+      const cardsView = document.getElementById('cards-view');
+      const docView = document.getElementById('document-view');
+      const icon = document.getElementById('view-icon');
+      const text = document.getElementById('view-text');
+
+      if (cardsView.style.display === 'none') {
+        cardsView.style.display = 'block';
+        docView.style.display = 'none';
+        icon.textContent = '📄';
+        text.textContent = 'Режим документа';
+      } else {
+        cardsView.style.display = 'none';
+        docView.style.display = 'block';
+        icon.textContent = '🎴';
+        text.textContent = 'Режим карточек';
+        if (window.MathJax && MathJax.typesetPromise) {
+          MathJax.typesetPromise();
+        }
       }
     }
 
-    // Render Full Linear Document View
-    function renderDocument() {
-      const container = document.getElementById('document-content');
-      let html = '';
-
+    // Генерация режима документа
+    function generateDocumentContent() {
+      const target = document.getElementById('document-rendered-content');
+      let out = '';
+      
       const sections = [
-        { id: 1, title: 'Раздел 1: Алгебра' },
-        { id: 2, title: 'Раздел 2: Векторы' },
-        { id: 3, title: 'Раздел 3: Комплексные числа и многочлены' }
+        { id: 'sec1', title: 'Раздел 1: Алгебра' },
+        { id: 'sec2', title: 'Раздел 2: Векторы' },
+        { id: 'sec3', title: 'Раздел 3: Комплексные числа и многочлены' }
       ];
 
       sections.forEach(s => {
-        html += <h2 class="text-lg font-bold text-slate-900 border-b pb-1 mt-6">${s.title}</h2>;
-        ticketsData.filter(t => t.sec === s.id).forEach(t => {
-          html += 
-            <div class="mb-4">
-              <div class="font-bold text-slate-900 mb-1">${t.title}</div>
-              <div class="text-slate-800 text-sm pl-3 border-l-2 border-amber-400">${t.text}</div>
+        out += `<h2 style="font-size: 1.3rem; margin: 24px 0 12px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px;">${s.title}</h2>`;
+        const cards = document.querySelectorAll(`.ticket-card[data-sec="${s.id}"]`);
+        cards.forEach(c => {
+          const title = c.querySelector('.card-title').innerText.replace('* Стандартный факт', '').trim();
+          const body = c.querySelector('.card-body').innerHTML;
+          out += `
+            <div class="doc-ticket">
+              <h3>${title}</h3>
+              <div style="font-size: 0.9rem; line-height: 1.6;">${body}</div>
             </div>
-          ;
+          `;
         });
       });
 
-      container.innerHTML = html;
-
-      if (window.MathJax && MathJax.typesetPromise) {
-        MathJax.typesetPromise();
-      }
-    }
-
-    // Category Tabs Handler
-    function setCategoryFilter(cat) {
-      activeCategory = cat;
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        if (btn.dataset.cat === cat) {
-          btn.className = 'tab-btn px-3 py-1.5 rounded-lg bg-slate-900 text-white shadow-sm';
-        } else {
-          btn.className = 'tab-btn px-3 py-1.5 rounded-lg bg-white text-slate-700 hover:bg-slate-100 border border-slate-200';
-        }
-      });
-      renderCards();
-    }
-
-    // Search filter trigger
-    function applyFilters() {
-      renderCards();
-    }
-
-    // Toggle Learned Status
-    function toggleLearned(id) {
-      if (learnedSet.has(id)) {
-        learnedSet.delete(id);
-      } else {
-        learnedSet.add(id);
-      }
-      localStorage.setItem('learned_tickets', JSON.stringify([...learnedSet]));
-      updateLearnedCounter();
-      renderCards();
-    }
-
-    function updateLearnedCounter() {
-      document.getElementById('stat-learned-count').textContent = ${learnedSet.size} / ${ticketsData.length}`;
-      if (chartInstance) {
-        chartInstance.data.datasets[0].data = [
-          ticketsData.filter(t=>t.sec===1).length,
-          ticketsData.filter(t=>t.sec===2).length,
-          ticketsData.filter(t=>t.sec===3).length
-        ];
-        chartInstance.update();
-      }
-    }
-[30.10.2026 16:23] Kirill: // View Mode Toggle (Cards vs Document)
-    function toggleViewMode() {
-      isDocumentMode = !isDocumentMode;
-      const cardsView = document.getElementById('cards-view');
-      const docView = document.getElementById('document-view');
-      const icon = document.getElementById('view-mode-icon');
-      const text = document.getElementById('view-mode-text');
-
-      if (isDocumentMode) {
-        cardsView.classList.add('hidden');
-        docView.classList.remove('hidden');
-        icon.textContent = '🎴';
-        text.textContent = 'Режим карточек';
-      } else {
-        cardsView.classList.remove('hidden');
-        docView.classList.add('hidden');
-        icon.textContent = '📄';
-        text.textContent = 'Режим документа';
-      }
-
-      if (window.MathJax && MathJax.typesetPromise) {
-        MathJax.typesetPromise();
-      }
-    }
-
-    // Chart.js Setup
-    function initChart() {
-      const ctx = document.getElementById('ticketsChart').getContext('2d');
-      chartInstance = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: ['Алгебра (10)', 'Векторы (11)', 'Комплексные и Многочлены (10)'],
-          datasets: [{
-            data: [10, 11, 10],
-            backgroundColor: ['#f59e0b', '#0284c7', '#10b981'],
-            borderWidth: 2,
-            borderColor: '#ffffff'
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                font: { size: 11 },
-                boxWidth: 12
-              }
-            },
-            tooltip: {
-              callbacks: {
-                label: function(context) {
-                  return  ${context.label}: ${context.raw} билетов;
-                }
-              }
-            }
-          }
-        }
-      });
+      target.innerHTML = out;
     }
   </script>
 </body>
